@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IITM Instrument Admin Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <header>
+        <h1>IITM Instrument Admin Portal</h1>
+        <p>Instrument Management & GIS Monitoring System</p>
+    </header>
+
+    <div class="container">
+        <div class="form-section">
+            <h2>Add / Update Instrument</h2>
+
+            <form id="instrumentForm">
+                <div class="input-group">
+                    <label>Instruments</label>
+                    <div id="instrumentContainer"></div>
+                    <br>
+                    <button type="button" onclick="addMoreInstrument()">+ Add More Instrument</button>
+                </div>
+
+                <div class="input-group">
+                    <label>Location Name</label>
+                    <input type="text" id="locationName" placeholder="Enter location">
+                </div>
+
+                <div class="coordinate-row">
+                    <div class="input-group">
+                        <label>Latitude</label>
+                        <input type="number" step="any" id="latitude" placeholder="Latitude">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Longitude</label>
+                        <input type="number" step="any" id="longitude" placeholder="Longitude">
+                    </div>
+
+                    <div class="input-group nav-group">
+                        <label>Locate</label>
+                        <button type="button" class="nav-btn" onclick="updateMarkerFromCoordinates()">
+                            ⌖➤
+                        </button>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" onclick="addInstrument()">Save Instrument</button>
+                    <button type="button" onclick="clearForm()">Clear</button>
+                    <button type="button" onclick="exportJSON()">Export JSON</button>
+                    <button type="button" onclick="document.getElementById('importFile').click()">Import JSON</button>
+                </div>
+
+                <input type="file" id="importFile" accept=".json" onchange="importJSON(event)" hidden>
+            </form>
+
+            <div class="converter-section">
+                <h2>Degree to Decimal Converter</h2>
+
+                <h3>Latitude</h3>
+                <div class="row">
+                    <input type="number" id="latDegree" placeholder="Degree">
+                    <input type="number" id="latMinute" placeholder="Minute">
+                    <input type="number" id="latSecond" placeholder="Second">
+                </div>
+
+                <h3>Longitude</h3>
+                <div class="row">
+                    <input type="number" id="lonDegree" placeholder="Degree">
+                    <input type="number" id="lonMinute" placeholder="Minute">
+                    <input type="number" id="lonSecond" placeholder="Second">
+                </div>
+
+                <button type="button" onclick="convertToDecimal()">Convert to Decimal</button>
+
+                <div class="converter-result">
+                    <p>Decimal Latitude: <span id="decimalLat">0</span></p>
+                    <p>Decimal Longitude: <span id="decimalLon">0</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="map-section">
+                <h2>Map View</h2>
+                <div id="map"></div>
+            </div>
+
+            <div class="table-section">
+                <h2>Instrument List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Instruments</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../Frontend/maps-master/docs/bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
